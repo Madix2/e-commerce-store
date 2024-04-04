@@ -3,6 +3,9 @@ import React from "react";
 import Link from "next/link";
 import AddToCart from "../addtocart";
 import Image from "next/image";
+import { Truncer } from "@/utils/truncer";
+import { FPrice } from "@/utils/fprice";
+import { Rating } from "@mui/material";
 interface ProductCardProps{
     data:any
 }
@@ -13,10 +16,14 @@ const ProductCard: React.FC<ProductCardProps> = ({data}) =>{
                 <div className="aspect-square overflow-hidden relative w-full">
                     <Image fill src={data.images[0].image} alt={data.name} className="w-full h-full object-contain"/>
                 </div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <div className="mt-4">
+                    {Truncer(data.name)}
+                </div>
+                <div>
+                    {/* <Rating value={data.rating} readOnly />  */}
+                </div>
+                <div> {data.reviews.length} reviews</div>
+                <div> {FPrice(data.price)} </div>
             </div>
         </div> 
     )

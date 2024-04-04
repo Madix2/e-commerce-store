@@ -2,7 +2,7 @@ import React from 'react'
 
 function HomeBanner() {
   return (
-    <div>HomeBanner</div>
+    <div className=' max-w-lg'>HomeBanner</div>
   )
 }
 
