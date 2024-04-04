@@ -28,9 +28,9 @@ function Navbar() {
                     ">
                     <Link href="/">
                         {/* <Image className='' width="150" height="150" alt='Adico Technologies logo' src="/favicon.ico"/> */}
-                        <img className='w-20 h-20' src="favicon.ico" alt="" />
+                        <img className='w-20 h-20' src="favicon.ico" alt="logo" />
                     </Link>
-                    <div>Search</div>
+                    <div className="hidden md:block"><input className='b-2px-green ' type="text" /></div>
                     <div className="flex justify-between gap-8 items-center sm:gap-4">
                         <div>CartCount</div>
                         <div>User Menu</div>
