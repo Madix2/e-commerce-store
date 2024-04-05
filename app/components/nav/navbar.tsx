@@ -24,7 +24,7 @@ function Navbar() {
             boarder-b-[1px]
         ">
             <Container>
-                <div className="text-sm lg:text-lgflex items-center justify-between gap-3 md-gap-0 ">
+                <div className="text-sm lg:text lg:flex items-center justify-between gap-3 md-gap-0 ">
                     <Link href="/" className={'${redressed.className} font-bold text-2xl'}>
                     Adico Technologies
                         {/* <Image className='' width="150" height="150" alt='Adico Technologies logo' src="/favicon.ico"/> */}

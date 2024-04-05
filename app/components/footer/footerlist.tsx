@@ -6,7 +6,7 @@ const FooterList: React.FC<FooterListProps>=({children}) => {
     <div className='
     w-full
     sm:w-1/2
-    md: w-1/4
+    md:w-1/4
     1g:w-1/6
     mb-6
     flex
