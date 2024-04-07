@@ -25,8 +25,8 @@ function Footer() {
             <Link href="#">Instagram</Link>
             <Link href="#">X</Link>
         </FooterList>
-        {/* Lets go for a <FaBeer />?
-        <AiOutlineTwitter /> */}
+        Lets go for a <FaBeer />?
+        <AiOutlineTwitter />
     </footer>
   )
 }
