@@ -9,7 +9,7 @@ interface iPrams{
 }
 const Product=({params} : {params: iPrams})=> (
     // const arr=products.id[params.productid];
-    <div>
+    <div className=" bg-white">
         <Container>
             <ProductDetails product={product} />
         </Container>

@@ -1,11 +1,18 @@
 'use client';
 
+import React, {useEffect } from "react";
+
+import Button from "@/app/components/button";
+import ProductImage from "@/app/components/products/productimage";
 import SetColor from "@/app/components/products/setcolor";
 import SetQuantity from "@/app/components/products/setquantity";
+import { useCart } from "@/hooks/usecart";
 import { products } from "@/utils/products";
 import { Rating } from "@mui/material";
 import Image from "next/image";
 import { useCallback, useState } from "react";
+import { MdCheckCircle } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 interface ProductDetailsProps{
     product:any
@@ -26,6 +33,8 @@ export type SelectedImgType={
     image:string;
 }
 const ProductDetails:React.FC<ProductDetailsProps>=({product}) => {
+    const [isProductInCart, setIsProductInCart] = useState(false)
+    const {handleAddProductToCart, cartProducts} = useCart()
     const [cartProduct, setCartProduct]=useState<CartProductType>({
         id: product.id,
         name: product.name,
@@ -35,7 +44,24 @@ const ProductDetails:React.FC<ProductDetailsProps>=({product}) => {
         sImage: { ...product.images[0] },
         qty: 1,
         price: product.price
-    })
+    });
+const router = useRouter()
+    // useEffect(() => {
+    //     localStorage.setItem("eShopCartItem", JSON.stringify(cartProducts))
+    // }, [cartProducts]);
+
+    // console.log(cartProducts);
+
+    useEffect(() => {
+        setIsProductInCart(false)
+        if (cartProducts){
+            const existingIndex = cartProducts.findIndex((item) => item.id == product.id)
+            if (existingIndex>-1){
+                setIsProductInCart(true);
+            }
+          }
+
+    },[cartProducts, products])
     const productRating=
         product.reviews.reduce((acc: number, item: any) => 
         item.rating + acc, 0) / product.reviews.length;
@@ -54,9 +80,8 @@ const ProductDetails:React.FC<ProductDetailsProps>=({product}) => {
     }, [cartProduct]);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>
-            {/* <Image></Image> */}
-            <img src={product.image} alt={product.name} />
+        <div className="w-[200px] h-[200px]">
+            <ProductImage cartProduct={cartProduct} product={product}/>
             
         </div>
         <div>
@@ -85,14 +110,25 @@ const ProductDetails:React.FC<ProductDetailsProps>=({product}) => {
         images={product.images}
         handleColorSelect={handleColorSelect}
         /> */}
-        <SetQuantity 
+        {isProductInCart ? <>
+        <p className=" mb-2 text-slate-500 flex items-center gap-1">
+            <MdCheckCircle size={20} className="text-teal-400"/> 
+            <span>product added to cart</span>
+        </p>
+        <div>
+            <Button label="View Cart" outline onClick={()=>{router.push("/cart")}}></Button>
+        </div>
+        </> : <>
+           <SetQuantity 
         cartProduct={cartProduct}
         handleQtyIncrease={handleQtyIncrease}
         handleQtyDecrease={handleQtyDecrease}
         />
-        <div>
-            Add To Cart
-        </div>
+        <div className=" max-w-[150px]">
+            <Button  label="Add to Cart" onClick={() => handleAddProductToCart(cartProduct)}/>
+         </div>
+        </>}
+        
         </div>
     </div>
   )
