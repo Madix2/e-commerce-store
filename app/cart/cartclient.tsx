@@ -5,10 +5,11 @@ import Link from "next/link";
 import { MdArrowBack } from "react-icons/md";
 import Button from "../components/button";
 import ItemContent from "./itemcontent";
+import { FPrice } from "@/utils/fprice";
 // import { useCart } from "@/hooks/usecart";
 
 const CartClient = () => {
-    const { cartProducts } = useCart();
+    const { cartProducts, handleClearCart, cartTotalAmount } = useCart();
     if (!cartProducts || cartProducts.length === 0) {
         return (
             <div className="flex flex-col items-center">
@@ -46,7 +47,7 @@ const CartClient = () => {
             <div className="w-[90px]">
                 <button className=" text-xs underline" onClick={() =>
                     {
-
+                        handleClearCart()
                     }
                 }>
                     Clear Cart
@@ -55,10 +56,10 @@ const CartClient = () => {
             <div className=" text-sm flex flex-col gap-1 items-center ">
                 <div className="flex justify-between w-full text-base font-semibold">
                     <span>Subtotal</span>
-                    <span>R 15 000</span>
+                    <span>{FPrice(cartTotalAmount)}</span>
                     
                 </div>
-                <p className=" text-slate-500">Fees calculate at check out</p>
+                <p className=" text-slate-200">Fees calculate at check out</p>
                 <button className=" bg-gray-700 p-3" onClick={() =>{}}>Check Out</button>
                 <Link href="/" className=" text-slate-200 items-center gap-1 mt-2 flex">
                     <MdArrowBack />
