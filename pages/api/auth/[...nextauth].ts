@@ -1,6 +1,3 @@
-import email from "next-auth/providers/email";
-import credentials from "next-auth/providers/credentials";
-import { where } from "firebase/firestore";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -19,11 +16,11 @@ export default NextAuth({
       name: 'credentials',
       credentials: {
         email: {
-          label: "email",
-          type: "text"
+          label: "Email",
+          type: "email"
         },
         password: {
-          label: "password",
+          label: "Password",
           type: "password"
         },
       },
@@ -34,15 +31,15 @@ export default NextAuth({
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email
-          }
+            email: credentials.email as string,
+          },
         });
 
         if (!user || !user?.hashedPassword) {
           throw new Error("Invalid email or password");
         }
 
-        const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
+        const isCorrectPassword = await bcrypt.compare(credentials.password as string, user.hashedPassword);
 
         if (!isCorrectPassword) {
           throw new Error('Invalid email or password');
